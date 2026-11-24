@@ -56,7 +56,9 @@ active. Option-backtick focuses the next window and wraps
 through the workspace's stable tile order, then its floating windows; it provides the same ordering in split layouts. In
 Fullscreen Layout, `Option+H`/`Option+K` step to the previous tile and `Option+L`/`Option+J` to the
 next one in that order without wrapping; past either end of the stack they continue to the adjacent
-display, as in a split layout. Leaving the workspace hides its windows back to front, so stacked
+display, as in a split layout. With `[labs] fullscreen_stack = true` they wrap around a stack of two
+or more tiles instead, and new tiled windows join the stack rather than exiting the mode (see
+[Configuration › Labs](configuration.md#labs)). Leaving the workspace hides its windows back to front, so stacked
 windows are never uncovered mid-switch.
 Command-backtick continues to use macOS's same-application window cycle, and Spaceman remembers the
 resulting focus. Press `Option+Shift+F` again to restore the unchanged split layout. Fullscreen Layout

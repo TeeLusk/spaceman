@@ -207,6 +207,10 @@ pub struct LabsConfig {
     /// Settings › Activity: the live arrangement log, doctor diagnostics, and process vitals.
     #[serde(default)]
     pub activity: bool,
+    /// Fullscreen Layout as a sticky stack: new tiled windows join it instead
+    /// of exiting the mode, and `Option+H/J/K/L` wrap around it.
+    #[serde(default)]
+    pub fullscreen_stack: bool,
 }
 
 impl LabsConfig {
@@ -216,6 +220,7 @@ impl LabsConfig {
         match feature {
             LabFeature::Scratchpad => self.scratchpad,
             LabFeature::Activity => self.activity,
+            LabFeature::FullscreenStack => self.fullscreen_stack,
         }
     }
 }
@@ -227,11 +232,14 @@ pub enum LabFeature {
     Scratchpad,
     /// Settings › Activity: the live arrangement log, doctor diagnostics, and process vitals.
     Activity,
+    /// Fullscreen Layout as a sticky stack: new tiled windows join it instead
+    /// of exiting the mode, and `Option+H/J/K/L` wrap around it.
+    FullscreenStack,
 }
 
 impl LabFeature {
     /// Every switch, in the order `[labs]` lists them.
-    pub const ALL: [Self; 2] = [Self::Scratchpad, Self::Activity];
+    pub const ALL: [Self; 3] = [Self::Scratchpad, Self::Activity, Self::FullscreenStack];
 
     /// The `[labs]` key that turns this feature on.
     #[must_use]
@@ -239,6 +247,7 @@ impl LabFeature {
         match self {
             Self::Scratchpad => "scratchpad",
             Self::Activity => "activity",
+            Self::FullscreenStack => "fullscreen_stack",
         }
     }
 
@@ -1169,6 +1178,10 @@ monitor = "main"
             config.shortcuts().scratchpad,
             "the Lab's shortcuts follow its switch"
         );
+        assert!(!config.labs().fullscreen_stack);
+        let config = Config::parse("version = 1\n[labs]\nfullscreen_stack = true\n").unwrap();
+        assert!(config.labs().fullscreen_stack);
+        assert!(!config.labs().scratchpad);
         assert!(Config::parse("version = 1\n[labs]\nwarp_drive = true\n").is_err());
         assert!(Config::parse("version = 1\n[labs]\nscratchpad = 1\n").is_err());
     }

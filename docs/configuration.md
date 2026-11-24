@@ -321,6 +321,7 @@ command changes behavior. Unknown keys are config errors.
 [labs]
 scratchpad = false                    # optional (default: false); the i3/sway-style Scratchpad
 activity = false                      # optional (default: false); Settings › Activity
+fullscreen_stack = false              # optional (default: false); a sticky, cycling Fullscreen Layout
 ```
 
 `scratchpad = true` enables the Scratchpad (see [Controls › Scratchpad](controls.md#scratchpad-lab)) and
@@ -338,6 +339,17 @@ keep recording either way. Turning it off while the pane is open returns Setting
 spaceman config set labs.activity true
 spaceman config get labs.activity
 spaceman config reset labs.activity
+```
+
+`fullscreen_stack = true` turns Fullscreen Layout into a sticky stack (see
+[Fullscreen Layout](features/fullscreen-layout.md)): a tiled window that opens on, moves into, or
+reappears on a Fullscreen Layout workspace joins the stack instead of exiting the mode, and
+`Option+H/J/K/L` wrap around a stack of two or more tiles, so holding one direction cycles every
+tile. A lone tile still continues to the adjacent display. No shortcuts are added. The switch
+applies live; turning it off leaves every workspace's mode as it is.
+
+```sh
+spaceman config set labs.fullscreen_stack true
 ```
 
 ## Remembered Placements

@@ -11,6 +11,7 @@ mod float;
 mod float_regressions;
 mod focus;
 mod fullscreen;
+mod fullscreen_stack;
 mod gestures;
 mod journal;
 mod layout;

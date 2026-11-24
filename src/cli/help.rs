@@ -178,6 +178,7 @@ pub(crate) fn config_help(executable: &str) -> String {
         "Labs keys (experimental, off by default):",
         "  labs.scratchpad  true | false    The i3/sway-style Scratchpad and its two shortcuts",
         "  labs.activity    true | false    Settings › Activity: arrangement log and diagnostics",
+        "  labs.fullscreen_stack  true | false  Fullscreen Layout keeps new tiles and wraps H/J/K/L",
         "",
         "Notes:",
         "  - Respects SPACEMAN_CONFIG and SPACEMAN_APPLICATION_SUPPORT.",

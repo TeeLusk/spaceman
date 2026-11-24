@@ -133,6 +133,10 @@ impl<B: WorkspaceBackend> WorkspaceRuntime<B> {
     /// tell them apart. Left/up and right/down instead step backward and
     /// forward through the stable tile order, without wrapping, so the ends of
     /// the stack still lead to the adjacent display.
+    ///
+    /// With the Fullscreen Stack Lab on, a stack of two or more tiles wraps at
+    /// either end instead, so one direction cycles every tile; a lone tile
+    /// still falls through to the adjacent display.
     fn stacked_target(
         &self,
         workspace: WorkspaceId,
@@ -144,6 +148,14 @@ impl<B: WorkspaceBackend> WorkspaceRuntime<B> {
         }
         let windows = self.workspaces.engine(workspace).bound_windows();
         let index = windows.iter().position(|window| window == focused)?;
+        let len = windows.len();
+        if self.config.labs().fullscreen_stack && len > 1 {
+            let target = match direction {
+                Direction::Left | Direction::Up => (index + len - 1) % len,
+                Direction::Right | Direction::Down => (index + 1) % len,
+            };
+            return windows.get(target).cloned();
+        }
         let target = match direction {
             Direction::Left | Direction::Up => index.checked_sub(1)?,
             Direction::Right | Direction::Down => index + 1,

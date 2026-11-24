@@ -113,7 +113,10 @@ monitor = "main"
 # Option+\ summons it centred on the focused display (or hides it again).
 # activity = true adds Settings › Activity, the live arrangement log and
 # doctor diagnostics; with it off the pane stays out of Settings.
+# fullscreen_stack = true keeps Fullscreen Layout on when new tiled windows open
+# (they join the stack) and makes Option+H/J/K/L wrap around the stack.
 #
 # [labs]
 # scratchpad = false
 # activity = false
+# fullscreen_stack = false

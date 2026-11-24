@@ -445,8 +445,11 @@ impl<B: WorkspaceBackend> WorkspaceRuntime<B> {
         Ok(selector)
     }
 
+    /// A tile joining a Fullscreen Layout workspace exits the mode and splits,
+    /// unless the Fullscreen Stack Lab keeps the mode on and stacks it.
     pub(super) fn exit_fullscreen_if_split(&mut self, workspace: WorkspaceId) {
-        if !self.workspaces.uses_fullscreen_layout(workspace) {
+        if !self.workspaces.uses_fullscreen_layout(workspace) || self.config.labs().fullscreen_stack
+        {
             return;
         }
         let bound_count = self

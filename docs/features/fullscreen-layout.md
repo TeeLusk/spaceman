@@ -21,7 +21,8 @@ Choose which window shows                              // fullscreen.focus
 ├── Option+` / ctl focus next -> next tile in stable order, then floats, wraps (raises it)
 ├── Option+Shift+` / ctl focus prev -> the same ring, backward
 ├── Option+H/K -> previous tile, Option+L/J -> next tile, no wrap
-│   └── Past either end -> adjacent display, as in split layouts
+│   ├── Past either end -> adjacent display, as in split layouts
+│   └── [labs] fullscreen_stack -> wraps at either end; a lone tile still crosses displays
 ├── Command+`       -> macOS same-app cycle; Spaceman remembers the result
 └── Click / Dock / app switch -> whatever macOS focuses is shown and remembered
 
@@ -31,6 +32,7 @@ Mode persistence                                        // fullscreen.persist
 ├── Ghostty native-tab replacement -> keeps mode and slot
 ├── Floating / dialog window opens -> floats above without exiting Fullscreen Layout
 ├── New tiled window opens or moves in -> automatically exits Fullscreen Layout and splits side by side
+│   └── [labs] fullscreen_stack -> joins the stack instead; the mode stays on
 └── Last tiled window closes or moves away -> mode turns off
 
 Blocked while on                                        // fullscreen.guards
@@ -56,6 +58,8 @@ Unit (FakeBackend), `src/app/tests/layout.rs`:
 `reappearing_parked_floating_window_preserves_fullscreen_layout`, and
 `ghostty_native_tab_replacement_preserves_workspace_and_fullscreen_layout`. They prove frames,
 persisted mode, and which window Spaceman asks to focus or raise; none observes real z-order.
+The Fullscreen Stack Lab is covered in `src/app/tests/fullscreen_stack.rs`: wrapping, a lone tile
+crossing displays, and opened, moved-in (with a Lab-off control), and reappearing tiles joining.
 
 ## How To Get To It (User POV)
 

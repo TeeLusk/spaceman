@@ -69,6 +69,14 @@ fn config_gets_sets_and_resets_labs_activity() {
         Some("true")
     );
 
+    let stack = temp.run(&["config", "set", "labs.fullscreen_stack", "true"]);
+    assert_eq!(stack.exit_code, 0, "{:?}", stack.stderr);
+    assert_eq!(
+        stack.stdout.as_deref(),
+        Some("set labs.fullscreen_stack = true")
+    );
+    assert!(Config::parse(&temp.read()).unwrap().labs().fullscreen_stack);
+
     let bad = temp.run(&["config", "set", "labs.activity", "yes"]);
     assert_eq!(bad.exit_code, 1);
     assert!(bad.stderr.unwrap().contains("expected 'true' or 'false'"));
